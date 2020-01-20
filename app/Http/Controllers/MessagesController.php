@@ -92,7 +92,11 @@ class MessagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $message = Message::find($id);
+         $this->validate($request, [
+            'content' => 'required|max:191',
+        ]);
+        
+        $message = Message::find($id);
         $message->content = $request->content;
         $message->save();
 
